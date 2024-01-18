@@ -5,7 +5,8 @@ var app = require('./app');
 var port = 3700;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/demo', {/*useUnifiedTopology: true, useNewUrlParser: true*/})
+//mongoose.connect('mongodb://localhost:27017/demo', {/*useUnifiedTopology: true, useNewUrlParser: true*/})
+mongoose.connect('mongodb+srv://striper:ZQvSE@tiZ#4X6Km@cluster0.yr5aoiu.mongodb.net/?retryWrites=true&w=majority', {/*useUnifiedTopology: true, useNewUrlParser: true*/})
 	.then(()=>{
 		console.log("Conexion a la base de datos establecida satisfactoriamente");
 		//creacion del servidor
