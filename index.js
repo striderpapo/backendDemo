@@ -20,6 +20,9 @@ mongoose.connect('mongodb+srv://striper:ZQvSE%40tiZ%234X6Km@cluster0.6ma1n4c.mon
 	const db = mongoose.connection;
 db.on('connected', () => {
   console.log('Conexión a MongoDB Atlas establecida');
+  app.listen(port,()=>{
+	console.log("Servidor corriendo correctamente en la url localhost:3700");
+});
 });
 db.on('error', (err) => {
   console.error(`Error de conexión a MongoDB Atlas: ${err}`);
