@@ -6,7 +6,7 @@ var port = 3700;
 
 mongoose.Promise = global.Promise;
 //mongoose.connect('mongodb://localhost:27017/demo', {/*useUnifiedTopology: true, useNewUrlParser: true*/})
-mongoose.connect('mongodb+srv://striper:ZQvSE%40tiZ%234X6Km@cluster0.gdffatk.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://striper:ZQvSE%40tiZ%234X6Km@cluster0.gdffatk.mongodb.net/demo?retryWrites=true&w=majority', {
 	tls: true,
   })
 	/*.then(()=>{
