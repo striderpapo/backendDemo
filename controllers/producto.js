@@ -1,8 +1,16 @@
 'use strict'
 
 var Producto=require('../models/producto');
+var Usuario=require('../models/usuario');
 var fs=require('fs');
 var path=require('path');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'dnzgfrtp7',
+  api_key: '831364683849261',
+  api_secret: 'v3GC7jYfzlRnFafaUpUVQT8BzjY'
+});
 
 var controller = {
 	saveProduct:function(req,res){
@@ -13,6 +21,7 @@ var controller = {
 		producto.nombre = params.nombre;
 		producto.descripcion = params.descripcion;
 		producto.nombreagrega = params.nombreagrega;
+		producto.imageproducto=null
 		
 	
 		
@@ -96,7 +105,61 @@ var controller = {
 .catch(function (err) {
   if(err) return res.status(500).send({message:"Error al eliminar al producto"});
 });
+	},
+		uploadImageproduct(req,res){
+		var productoId=req.params.id;
+		var nombreagrego=req.params.agrego;
+		var fileName="Imagen no subida";
+		console.log(productoId)
+		console.log(nombreagrego)
+		console.log(req.files.imageproducto.path)
+		if(req.files){
+			var filePath = req.files.imageproducto.path;
+			console.log(filePath)
+			var fileSplit = filePath.split('\.');
+			console.log(fileSplit)
+			var fileName = fileSplit[0];
+			console.log(fileName)
+			//var extSplit = fileName.split('\.');
+			var fileExt = fileSplit[1];
+			console.log(fileExt)
+			if(fileExt == 'png' || fileExt == 'jpg'|| fileExt == 'jpeg'|| fileExt=='gif'){
+
+Usuario.find({"username" :nombreagrego}, { _id: 1})
+		.then(function (usuario) {
+  if(!usuario) return res.status(404).send({message:"No se enceontro el usuario"});
+  console.log(usuario[0]._id)
+ 
+  cloudinary.uploader.upload(filePath,{folder: usuario[0]._id+'/'}, (error, result) => {
+  				if(error){
+    				console.error(error);
+  				}else{
+    //console.log(result.url);
+				    console.log('Imagen subida exitosamente.');
+						Producto.findByIdAndUpdate(productoId,{imageproducto:result.url},{new:true})
+						.then(function (imageproductUpdate) {
+				  		if(!imageproductUpdate) return res.status(404).send({message:"No se ha podido guardar al usuario"});
+				  			return res.status(200).send({producto:imageproductUpdate});
+							})
+						.catch(function (err) {
+				  		if(err) return res.status(500).send({message:"Error al eliminar al producto"});
+						});
+  }
+});
+
+})
+.catch(function (err) {
+  if(err) return res.status(500).send({message:"Error al guardar al usuario"});
+});
+			}else{
+					return res.status(200).send({message:'La extension no es valida'})
+			}
+		}else{
+			return res.status(200).send({
+				message:fileName
+		});
 	}
+}
 
 };
 

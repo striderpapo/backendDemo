@@ -3,6 +3,7 @@
 var Usuario=require('../models/usuario');
 var fs=require('fs');
 var path=require('path');
+const cloudinary = require('cloudinary').v2;
 
 var controller = {
 	saveUsuario:function(req,res){
@@ -26,7 +27,14 @@ var controller = {
 		usuario.save()
 		.then(function (usuarioStored) {
   if(!usuarioStored) return res.status(404).send({message:"No se ha podido guardar al usuario"});
-  return res.status(200).send({usuario:usuarioStored});
+  cloudinary.api.create_folder(usuarioStored._id, (error, result) => {
+  if (error) {
+    console.error('Error al crear la carpeta en Cloudinary:', error);
+  } else {
+    console.log('Carpeta creada exitosamente:', result);
+    return res.status(200).send({usuario:usuarioStored});
+  }
+});
 })
 .catch(function (err) {
   if(err) return res.status(500).send({message:"Error al guardar al usuario"});
