@@ -52,8 +52,9 @@ var controller = {
 		})*/
 
 
-			Usuario.find({"username" :Username})
+			Usuario.find({"username":Username})
 		.then(function (usuario) {
+			console.log(usuario)
   if(!usuario) return res.status(404).send({message:"No se ha podido guardar al usuario"});
   return res.status(200).send({user:usuario});
 })
