@@ -8,7 +8,7 @@ var routerUsuario = express.Router();
 
 
 routerUsuario.post('/suser',UsuarioController.saveUsuario);
-routerUsuario.get('/guser/:username?',UsuarioController.getUsuario);
+routerUsuario.post('/guser',UsuarioController.getUsuario);
 
 
 
