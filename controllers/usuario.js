@@ -4,7 +4,7 @@ var Usuario=require('../models/usuario');
 var fs=require('fs');
 var path=require('path');
 const cloudinary = require('cloudinary').v2;
-var bcrypt=require('bcrypt');
+var bcrypt=require('bcryptjs');
 var jwt=require('jsonwebtoken');
 
 var controller = {
