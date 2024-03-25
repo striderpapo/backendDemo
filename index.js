@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://striper:ZQvSE%40tiZ%234X6Km@cluster0.tfj6sgx.mon
 		//creacion del servidor
 		//pass api key cloudinary v3GC7jYfzlRnFafaUpUVQT8BzjY
 		app.listen(port,()=>{
-			console.log("Servidor corriendo correctamente en la url localhost:3700");
+			console.log("Servidor corriendo correctamente");
 		});
 	})
 	.catch(err =>console.log("error al conectarse a la base:"+err));
