@@ -49,19 +49,35 @@ var controller = {
 deleteProducto:function(req,res){
 	var productoId=req.params.id;
 
-	Producto.findByIdAndDelete(productoId)
-	.then(function (productoRemoved) {
-  		if(!productoRemoved) return res.status(404).send({message:"No se ha podido guardar al usuario"});
-  		return res.status(200).send({producto:productoRemoved});
-	})
-	.catch(function (err) {
-  		if(err) return res.status(500).send({message:"Error al eliminar al producto"});
-	});
-},
-	
-updateProduct:function(req,res){
-	var productId=req.params.id;
-	var update=req.body;
+			if(!productoRemoved) return res.status(404).send({message:"no se puede eliminar esta prenda"});
+			console.log(productoRemoved)
+			return res.status(200).send({producto:productoRemoved});
+		});*/
+		Producto.findByIdAndDelete(productoId)
+		.then(function (productoRemoved) {
+  if(!productoRemoved) return res.status(404).send({message:"No se ha podido guardar al usuario"});
+  console.log(productoRemoved.imageproducto)
+  const imagesplit = productoRemoved.imageproducto.split('/');
+  console.log(imagesplit[7])
+  console.log(imagesplit[8].split(".")[0])
+cloudinary.uploader.destroy(`${imagesplit[7]}/${imagesplit[8].split(".")[0]}`)
+.then(result => {
+	console.log("Imagen borrada:", result);
+	console.log("97")
+	console.log(result)
+	return res.status(200).send({producto:productoRemoved});
+  })
+  .catch(error => {
+	console.error("Error al borrar la imagen:", error);
+  });
+})
+.catch(function (err) {
+  if(err) return res.status(500).send({message:"Error al eliminar al producto"});
+});
+	},
+	updateProduct:function(req,res){
+		var productId=req.params.id;
+		var update=req.body;
 
 	Producto.findByIdAndUpdate(productId,update,{new:true})
 	.then(function (productoRemoved) {
