@@ -52,10 +52,7 @@ deleteProducto:function(req,res){
 		Producto.findByIdAndDelete(productoId)
 		.then(function (productoRemoved) {
   if(!productoRemoved) return res.status(404).send({message:"No se ha podido guardar al usuario"});
-  console.log(productoRemoved.imageproducto)
   const imagesplit = productoRemoved.imageproducto.split('/');
-  console.log(imagesplit[7])
-  console.log(imagesplit[8].split(".")[0])
 cloudinary.uploader.destroy(`${imagesplit[7]}/${imagesplit[8].split(".")[0]}`)
 .then(result => {
 	console.log("Imagen borrada:", result);
