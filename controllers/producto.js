@@ -77,7 +77,20 @@ var controller = {
 		Producto.findByIdAndDelete(productoId)
 		.then(function (productoRemoved) {
   if(!productoRemoved) return res.status(404).send({message:"No se ha podido guardar al usuario"});
-  return res.status(200).send({producto:productoRemoved});
+  console.log(productoRemoved.imageproducto)
+  const imagesplit = productoRemoved.imageproducto.split('/');
+  console.log(imagesplit[7])
+  console.log(imagesplit[8].split(".")[0])
+cloudinary.uploader.destroy(`${imagesplit[7]}/${imagesplit[8].split(".")[0]}`)
+.then(result => {
+	console.log("Imagen borrada:", result);
+	console.log("97")
+	console.log(result)
+	return res.status(200).send({producto:productoRemoved});
+  })
+  .catch(error => {
+	console.error("Error al borrar la imagen:", error);
+  });
 })
 .catch(function (err) {
   if(err) return res.status(500).send({message:"Error al eliminar al producto"});
