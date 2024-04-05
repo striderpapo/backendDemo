@@ -55,9 +55,6 @@ deleteProducto:function(req,res){
   const imagesplit = productoRemoved.imageproducto.split('/');
 cloudinary.uploader.destroy(`${imagesplit[7]}/${imagesplit[8].split(".")[0]}`)
 .then(result => {
-	console.log("Imagen borrada:", result);
-	console.log("97")
-	console.log(result)
 	return res.status(200).send({producto:productoRemoved});
   })
   .catch(error => {
