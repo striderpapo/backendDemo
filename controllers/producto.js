@@ -49,7 +49,7 @@ var controller = {
 deleteProducto:function(req,res){
 	var productoId=req.params.id;
 
-			if(!productoRemoved) return res.status(404).send({message:"no se puede eliminar esta prenda"});
+			/*if(!productoRemoved) return res.status(404).send({message:"no se puede eliminar esta prenda"});
 			console.log(productoRemoved)
 			return res.status(200).send({producto:productoRemoved});
 		});*/
