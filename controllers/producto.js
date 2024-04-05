@@ -49,10 +49,6 @@ var controller = {
 deleteProducto:function(req,res){
 	var productoId=req.params.id;
 
-			/*if(!productoRemoved) return res.status(404).send({message:"no se puede eliminar esta prenda"});
-			console.log(productoRemoved)
-			return res.status(200).send({producto:productoRemoved});
-		});*/
 		Producto.findByIdAndDelete(productoId)
 		.then(function (productoRemoved) {
   if(!productoRemoved) return res.status(404).send({message:"No se ha podido guardar al usuario"});
