@@ -53,7 +53,7 @@ var controller = {
 	saveUsuarioFace:function(req,res){
 		var usuario = new Usuario();
 
-		const { accessToken }=req.body;
+		const { accessToken }= req.body;
 		console.log(req.body)
 		console.log(accessToken)
 		const url = `https://graph.facebook.com/v12.0/me?access_token=${accessToken}&fields=id,name,picture`;
